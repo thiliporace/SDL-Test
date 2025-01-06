@@ -11,6 +11,7 @@
 #include "Score.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
+#include "ShapeMovement.hpp"
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
@@ -67,6 +68,8 @@ bool checkCollision( SDL_Rect a, SDL_Rect b )
 void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore) {
     static int xSpeed = 6;
     static int ySpeed = 6;
+    
+    ShapeMovement shapeMovement;
 
     if (checkCollision(ball.pos, leftRectangle.pos) || checkCollision(ball.pos, rightRectangle.pos)) {
         xSpeed = -xSpeed;
@@ -87,9 +90,8 @@ void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRecta
         leftScore++;
         leftScoreObject.setScore(leftScore);
     }
-
-    ball.pos.x += xSpeed;
-    ball.pos.y += ySpeed;
+    
+    shapeMovement.move(ball, xSpeed, ySpeed);
 }
 
 

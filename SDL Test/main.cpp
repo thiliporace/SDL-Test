@@ -22,6 +22,8 @@
 #include "BallLogic.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
+#include "MoveCommand.hpp"
+#include "InputManager.hpp"
 
 using namespace std;
 
@@ -45,6 +47,15 @@ int main(){
     SDL_Event event;
     bool quit = false;
     
+    ShapeMovement shapeMovement;
+    
+    InputManager inputManager;
+    
+    inputManager.setKey('W', new MoveCommand(-50,shapeMovement), &leftRectangle);
+    inputManager.setKey('S', new MoveCommand(50,shapeMovement), &leftRectangle);
+    inputManager.setKey('U', new MoveCommand(-50,shapeMovement), &rightRectangle);
+    inputManager.setKey('D', new MoveCommand(50,shapeMovement), &rightRectangle);
+    
     while (!quit){
         // events handling
         while(SDL_PollEvent(&event)){
@@ -55,35 +66,7 @@ int main(){
                     break;
                 
                 case SDL_KEYDOWN:
-                    //api pra tecla pressionada
-                    switch(event.key.keysym.scancode) {
-                        case SDL_SCANCODE_W:
-                            if (leftRectangle.pos.y > 45){
-                                leftRectangle.pos.y -= 50;
-                            }
-                            break;
-                        
-                        case SDL_SCANCODE_S:
-                            if (leftRectangle.pos.y < 545){
-                                leftRectangle.pos.y += 50;
-                            }
-                            break;
-                        
-                        case SDL_SCANCODE_UP:
-                            if (rightRectangle.pos.y > 45){
-                                rightRectangle.pos.y -= 50;
-                            }
-                            break;
-                            
-                        case SDL_SCANCODE_DOWN:
-                            if (rightRectangle.pos.y < 545){
-                                rightRectangle.pos.y += 50;
-                            }
-                            break;
-                            
-                        default:
-                            break;
-                    }
+                    inputManager.handleInput(event);
             }
             
         }
