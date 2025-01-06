@@ -36,6 +36,9 @@ private:
     static SdlManager* instance;
 
     SdlManager();
+    
+    //Deleta o copy constructor por ser singleton
+    SdlManager(const SdlManager& obj) = delete;
 
 public:
     static SdlManager* getInstance();
