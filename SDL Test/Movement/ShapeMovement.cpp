@@ -9,10 +9,10 @@
 #include "Shape.hpp"
 
 void ShapeMovement::move(Shape& shape, int x, int y){
-    if (x == shape.pos.x){
+    if (x == 0){
         shape.pos.y += y;
     }
-    else if (y == shape.pos.y){
+    else if (y == 0){
         shape.pos.x += x;
     }
     else{

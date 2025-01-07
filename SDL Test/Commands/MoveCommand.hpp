@@ -14,10 +14,10 @@
 
 class MoveCommand: public CommandProtocol{
 private:
-    int ySpeed;
+    int xSpeed, ySpeed;
     ShapeMovement& shapeMovement;
 public:
-    MoveCommand(int ySpeed, ShapeMovement& shapeMovement);
+    MoveCommand(int xSpeed, int ySpeed, ShapeMovement& shapeMovement);
 
     virtual void execute(Shape& shape) override;
 };

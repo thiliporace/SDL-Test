@@ -12,6 +12,7 @@
 #include "Circle.hpp"
 #include "Rectangle.hpp"
 #include "ShapeMovement.hpp"
+#include "MoveCommand.hpp"
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
@@ -91,7 +92,8 @@ void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRecta
         leftScoreObject.setScore(leftScore);
     }
     
-    shapeMovement.move(ball, xSpeed, ySpeed);
+    MoveCommand moveBall(xSpeed,ySpeed,shapeMovement);
+    moveBall.execute(ball);
 }
 
 

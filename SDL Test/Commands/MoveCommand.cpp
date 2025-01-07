@@ -8,8 +8,8 @@
 #include "MoveCommand.hpp"
 #include "Shape.hpp"
 
-MoveCommand::MoveCommand(int ySpeed, ShapeMovement& shapeMovement): ySpeed(ySpeed), shapeMovement(shapeMovement) {}
+MoveCommand::MoveCommand(int xSpeed, int ySpeed, ShapeMovement& shapeMovement):xSpeed(xSpeed), ySpeed(ySpeed), shapeMovement(shapeMovement) {}
 
 void MoveCommand::execute(Shape& shape){
-    shapeMovement.move(shape, shape.pos.x, ySpeed);
+    shapeMovement.move(shape, xSpeed, ySpeed);
 }
