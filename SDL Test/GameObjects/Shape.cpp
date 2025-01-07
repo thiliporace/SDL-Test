@@ -14,6 +14,7 @@
 #include <SDL2/SDL_filesystem.h>
 
 #include "SdlManager.hpp"
+#include "ShapeAssetManager.hpp"
 
 using namespace std;
 
@@ -21,21 +22,9 @@ Shape::Shape(int xPos, int yPos, float width, float height, char* assetName): st
     
     SdlManager* sdlManager = SdlManager::getInstance();
     
-    sprite = IMG_Load(assetName);
+    ShapeAssetManager* shapeAssetManager = ShapeAssetManager::getInstance(sdlManager->getRenderer());
     
-    if (!sprite){
-        cout << "Error Surface: " << SDL_GetError() << endl;
-        return;
-    }
-    
-    shapeTexture = SDL_CreateTextureFromSurface(sdlManager->getRenderer(), sprite);
-    
-    if (!shapeTexture) {
-        cout << "Error Texture: " << SDL_GetError() << endl;
-        return;
-    }
-    
-    SDL_FreeSurface(sprite); //Limpa memoria
+    shapeTexture = shapeAssetManager->getAsset(assetName);
     
     SDL_QueryTexture(shapeTexture, NULL, NULL, &pos.w, &pos.h); //Conecta textura com posicao
     

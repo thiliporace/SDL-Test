@@ -24,6 +24,7 @@
 		8F6E61722D1625B3000B9DD5 /* BallLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61702D1625B3000B9DD5 /* BallLogic.cpp */; };
 		8F6E61752D162639000B9DD5 /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61732D162639000B9DD5 /* Circle.cpp */; };
 		8F6E61782D1626C1000B9DD5 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61762D1626C1000B9DD5 /* Rectangle.cpp */; };
+		8FC8E1722D2DB7D400A4B584 /* ShapeAssetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC8E1702D2DB7D400A4B584 /* ShapeAssetManager.cpp */; };
 		8FF449942D2C660300F1CA3E /* MoveCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF449922D2C660300F1CA3E /* MoveCommand.cpp */; };
 		8FF449A02D2C6E5300F1CA3E /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4499E2D2C6E5300F1CA3E /* InputManager.cpp */; };
 		8FF449A42D2C7F1300F1CA3E /* ShapeMovement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF449A22D2C7F1300F1CA3E /* ShapeMovement.cpp */; };
@@ -70,6 +71,8 @@
 		8F6E61742D162639000B9DD5 /* Circle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Circle.hpp; sourceTree = "<group>"; };
 		8F6E61762D1626C1000B9DD5 /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
 		8F6E61772D1626C1000B9DD5 /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
+		8FC8E1702D2DB7D400A4B584 /* ShapeAssetManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShapeAssetManager.cpp; sourceTree = "<group>"; };
+		8FC8E1712D2DB7D400A4B584 /* ShapeAssetManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShapeAssetManager.hpp; sourceTree = "<group>"; };
 		8FF4498E2D2C649F00F1CA3E /* CommandProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandProtocol.h; sourceTree = "<group>"; };
 		8FF449902D2C64E600F1CA3E /* SdlManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SdlManagerProtocol.h; sourceTree = "<group>"; };
 		8FF449922D2C660300F1CA3E /* MoveCommand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MoveCommand.cpp; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				8F6E616E2D1616BC000B9DD5 /* Score.hpp */,
 				8F6E61702D1625B3000B9DD5 /* BallLogic.cpp */,
 				8F6E61712D1625B3000B9DD5 /* BallLogic.hpp */,
+				8FC8E1702D2DB7D400A4B584 /* ShapeAssetManager.cpp */,
+				8FC8E1712D2DB7D400A4B584 /* ShapeAssetManager.hpp */,
 			);
 			path = "Game Manager";
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 			files = (
 				8F6E61292D13612F000B9DD5 /* main.cpp in Sources */,
 				8F6E61752D162639000B9DD5 /* Circle.cpp in Sources */,
+				8FC8E1722D2DB7D400A4B584 /* ShapeAssetManager.cpp in Sources */,
 				8F6E61722D1625B3000B9DD5 /* BallLogic.cpp in Sources */,
 				8F6E615A2D15DBBF000B9DD5 /* SdlManager.cpp in Sources */,
 				8FF449A42D2C7F1300F1CA3E /* ShapeMovement.cpp in Sources */,

@@ -18,7 +18,7 @@ private:
     ShapeMovement& shapeMovement;
 public:
     MoveCommand(int xSpeed, int ySpeed, ShapeMovement& shapeMovement);
-
+    
     virtual void execute(Shape& shape) override;
 };
 
