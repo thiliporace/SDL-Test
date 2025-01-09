@@ -30,6 +30,9 @@ public:
     
     Shape(int xPos, int yPos, float width, float height, char* assetName);
     
+    //Construtor padrão da classe
+    Shape();
+    
     const void setStartPosition(int& xPos, int& yPos, float width, float height);
     
     ~Shape();

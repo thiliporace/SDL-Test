@@ -11,8 +11,6 @@
 #include "Score.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
-#include "ShapeMovement.hpp"
-#include "MoveCommand.hpp"
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
@@ -23,81 +21,60 @@
 #include <string>
 #include <sstream>
 
-bool checkCollision( SDL_Rect a, SDL_Rect b )
-{
-    int leftA, leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB;
+BallLogic::BallLogic(ScoreObserver* scoreObserver) : xSpeed(6), ySpeed(6), scoreSubject(scoreObserver) {}
 
-    leftA = a.x;
-    rightA = a.x + a.w;
-    topA = a.y;
-    bottomA = a.y + a.h;
+bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
+    int leftA = a.x;
+    int rightA = a.x + a.w;
+    int topA = a.y;
+    int bottomA = a.y + a.h;
 
-    leftB = b.x;
-    rightB = b.x + b.w;
-    topB = b.y;
-    bottomB = b.y + b.h;
-    
-    
-        if( bottomA <= topB )
-        {
-            return false;
-        }
+    int leftB = b.x;
+    int rightB = b.x + b.w;
+    int topB = b.y;
+    int bottomB = b.y + b.h;
 
-        if( topA >= bottomB )
-        {
-            return false;
-        }
-
-        if( rightA <= leftB )
-        {
-            return false;
-        }
-
-        if( leftA >= rightB )
-        {
-            return false;
-        }
-
-        
-        return true;
+    if (bottomA <= topB || topA >= bottomB || rightA <= leftB || leftA >= rightB) {
+        return false;
     }
 
+    return true;
+}
 
-void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore) {
-    static int xSpeed = 6;
-    static int ySpeed = 6;
+void BallLogic::calculateBall(ScoreObserver* scoreObserver, Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore) {
     
     ShapeMovement shapeMovement;
-
+    
+    // Lógica de colisão com os retângulos (paddles)
     if (checkCollision(ball.pos, leftRectangle.pos) || checkCollision(ball.pos, rightRectangle.pos)) {
         xSpeed = -xSpeed;
     }
 
+    // Lógica de colisão com as bordas superiores e inferiores
     if (ball.pos.y <= 10 || ball.pos.y >= 580) {
         ySpeed = -ySpeed;
     }
 
+    // Se a bola sair pela esquerda
     if (ball.pos.x <= -10) {
         gameStarted = false;
+//        scoreSubject.notify(RIGHT_SIDE_SCORE,ball); //Não esta funcionando, não faço ideia do porque
         rightScore++;
         rightScoreObject.setScore(rightScore);
     }
 
+    // Se a bola sair pela direita
     if (ball.pos.x >= 810) {
         gameStarted = false;
-        leftScore++;
-        leftScoreObject.setScore(leftScore);
+        scoreSubject.notify(LEFT_SIDE_SCORE,ball);
     }
-    
-    MoveCommand moveBall(xSpeed,ySpeed,shapeMovement);
+
+    // Movendo a bola
+    MoveCommand moveBall(xSpeed, ySpeed, shapeMovement);
     moveBall.execute(ball);
 }
 
-
-void restartBall(Circle& circle, int xPos, int yPos) {
+void BallLogic::restartBall(Circle& circle, int xPos, int yPos) {
     circle.pos.x = xPos;
     circle.pos.y = yPos;
 }

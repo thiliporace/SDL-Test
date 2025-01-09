@@ -21,13 +21,25 @@
 #include "Score.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
+#include "ShapeMovement.hpp"
+#include "MoveCommand.hpp"
+#include "Subject.hpp"
+#include "ScoreObserver.hpp"
 
-bool checkCollision( SDL_Rect a, SDL_Rect b );
+class BallLogic {
+private:
+    int xSpeed;
+    int ySpeed;
+    Subject scoreSubject;
 
+public:
+    BallLogic(ScoreObserver* scoreObserver);
+    void calculateBall(ScoreObserver* scoreObserver,Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore);
+    void restartBall(Circle& circle, int xPos, int yPos);
 
-void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore);
+private:
+    bool checkCollision(SDL_Rect a, SDL_Rect b);
+};
 
-
-void restartBall(Circle& circle, int xPos, int yPos);
 
 #endif /* BallLogic_hpp */

@@ -18,6 +18,8 @@
 
 using namespace std;
 
+Shape::Shape() {}
+
 Shape::Shape(int xPos, int yPos, float width, float height, char* assetName): startXPos(xPos), startYPos(yPos){
     
     SdlManager* sdlManager = SdlManager::getInstance();
@@ -40,5 +42,8 @@ const void Shape::setStartPosition(int& xPos, int& yPos, float width, float heig
 };
 
 Shape::~Shape(){
-    SDL_DestroyTexture(shapeTexture);
+    if (shapeTexture) {
+        SDL_DestroyTexture(shapeTexture);
+        shapeTexture = nullptr;
+    }
 }

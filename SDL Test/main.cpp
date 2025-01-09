@@ -19,11 +19,11 @@
 #include "SdlManager.hpp"
 #include "Shape.hpp"
 #include "Score.hpp"
-#include "BallLogic.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
 #include "MoveCommand.hpp"
 #include "InputManager.hpp"
+#include "BallLogic.hpp"
 
 using namespace std;
 
@@ -41,11 +41,18 @@ int main(){
     Rectangle leftRectangle(50, 300);
     Rectangle rightRectangle(740, 300);
     
-    Score leftScoreObject(50, 150,leftScore);
     Score rightScoreObject(700, 150, rightScore);
+    Score leftScoreObject(50, 150,leftScore);
+    
+    rightScoreObject.setScore(rightScore);
+    leftScoreObject.setScore(leftScore);
     
     SDL_Event event;
     bool quit = false;
+    
+    ScoreObserver scoreObserver = ScoreObserver(leftScore, rightScore, leftScoreObject, rightScoreObject);
+    
+    BallLogic ballLogic(&scoreObserver);
     
     ShapeMovement shapeMovement;
     
@@ -88,10 +95,10 @@ int main(){
         
         // update
         if (gameStarted){
-            calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
+            ballLogic.calculateBall(&scoreObserver, circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
         }
         else{
-            restartBall(circle, 400, 400);
+            ballLogic.restartBall(circle, 400, 400);
             gameStarted = true;
         }
         

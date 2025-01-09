@@ -35,7 +35,7 @@ Score::Score(int xPos, int yPos, int initialScore) {
     rect.y = yPos;
     
     // Inicializa o texto com o valor inicial do score
-    setScore(initialScore);
+    //setScore(initialScore);
 }
 
 Score::~Score() {
@@ -66,8 +66,16 @@ void Score::setScore(int score) {
         cout << "Erro na textura: " << SDL_GetError() << endl;
     }
     
+    std::cout << rect.w << "/" << rect.h << std::endl;
+    
     rect.w = surface->w;
     rect.h = surface->h;
     
+    std::cout << rect.w << "/" << rect.h << std::endl;
+    
     SDL_FreeSurface(surface);
+}
+
+TTF_Font* Score::getFont(){
+    return font;
 }

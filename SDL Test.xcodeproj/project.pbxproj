@@ -25,6 +25,8 @@
 		8F6E61752D162639000B9DD5 /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61732D162639000B9DD5 /* Circle.cpp */; };
 		8F6E61782D1626C1000B9DD5 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61762D1626C1000B9DD5 /* Rectangle.cpp */; };
 		8FC8E1722D2DB7D400A4B584 /* ShapeAssetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC8E1702D2DB7D400A4B584 /* ShapeAssetManager.cpp */; };
+		8FC8E17F2D2F01F700A4B584 /* ScoreObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC8E17D2D2F01F700A4B584 /* ScoreObserver.cpp */; };
+		8FC8E1812D2F0E3000A4B584 /* Subject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC8E1802D2F0E3000A4B584 /* Subject.cpp */; };
 		8FF449942D2C660300F1CA3E /* MoveCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF449922D2C660300F1CA3E /* MoveCommand.cpp */; };
 		8FF449A02D2C6E5300F1CA3E /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4499E2D2C6E5300F1CA3E /* InputManager.cpp */; };
 		8FF449A42D2C7F1300F1CA3E /* ShapeMovement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF449A22D2C7F1300F1CA3E /* ShapeMovement.cpp */; };
@@ -73,6 +75,12 @@
 		8F6E61772D1626C1000B9DD5 /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
 		8FC8E1702D2DB7D400A4B584 /* ShapeAssetManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShapeAssetManager.cpp; sourceTree = "<group>"; };
 		8FC8E1712D2DB7D400A4B584 /* ShapeAssetManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShapeAssetManager.hpp; sourceTree = "<group>"; };
+		8FC8E1762D2EFE4A00A4B584 /* Subject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Subject.hpp; sourceTree = "<group>"; };
+		8FC8E1792D2EFFE200A4B584 /* Observer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Observer.hpp; sourceTree = "<group>"; };
+		8FC8E17C2D2F00E100A4B584 /* EventEnum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventEnum.h; sourceTree = "<group>"; };
+		8FC8E17D2D2F01F700A4B584 /* ScoreObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreObserver.cpp; sourceTree = "<group>"; };
+		8FC8E17E2D2F01F700A4B584 /* ScoreObserver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScoreObserver.hpp; sourceTree = "<group>"; };
+		8FC8E1802D2F0E3000A4B584 /* Subject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Subject.cpp; sourceTree = "<group>"; };
 		8FF4498E2D2C649F00F1CA3E /* CommandProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandProtocol.h; sourceTree = "<group>"; };
 		8FF449902D2C64E600F1CA3E /* SdlManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SdlManagerProtocol.h; sourceTree = "<group>"; };
 		8FF449922D2C660300F1CA3E /* MoveCommand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MoveCommand.cpp; sourceTree = "<group>"; };
@@ -117,6 +125,9 @@
 		8F6E61162D1360B6000B9DD5 /* SDL Test */ = {
 			isa = PBXGroup;
 			children = (
+				8FC8E17B2D2F00B700A4B584 /* Enums */,
+				8FC8E1742D2EFE3300A4B584 /* Observable */,
+				8FC8E1732D2EFDF400A4B584 /* Score */,
 				8FF449A12D2C7F0400F1CA3E /* Movement */,
 				8FF449962D2C666300F1CA3E /* Game Manager */,
 				8FF449952D2C664600F1CA3E /* GameObjects */,
@@ -143,6 +154,35 @@
 				8F6E612B2D13622C000B9DD5 /* SDL2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8FC8E1732D2EFDF400A4B584 /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				8F6E616D2D1616BC000B9DD5 /* Score.cpp */,
+				8F6E616E2D1616BC000B9DD5 /* Score.hpp */,
+				8FC8E17D2D2F01F700A4B584 /* ScoreObserver.cpp */,
+				8FC8E17E2D2F01F700A4B584 /* ScoreObserver.hpp */,
+			);
+			path = Score;
+			sourceTree = "<group>";
+		};
+		8FC8E1742D2EFE3300A4B584 /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				8FC8E1762D2EFE4A00A4B584 /* Subject.hpp */,
+				8FC8E1802D2F0E3000A4B584 /* Subject.cpp */,
+				8FC8E1792D2EFFE200A4B584 /* Observer.hpp */,
+			);
+			path = Observable;
+			sourceTree = "<group>";
+		};
+		8FC8E17B2D2F00B700A4B584 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				8FC8E17C2D2F00E100A4B584 /* EventEnum.h */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		8FF4498F2D2C64B700F1CA3E /* Protocols */ = {
@@ -181,8 +221,6 @@
 			children = (
 				8F6E61582D15DBBF000B9DD5 /* SdlManager.cpp */,
 				8F6E61592D15DBBF000B9DD5 /* SdlManager.hpp */,
-				8F6E616D2D1616BC000B9DD5 /* Score.cpp */,
-				8F6E616E2D1616BC000B9DD5 /* Score.hpp */,
 				8F6E61702D1625B3000B9DD5 /* BallLogic.cpp */,
 				8F6E61712D1625B3000B9DD5 /* BallLogic.hpp */,
 				8FC8E1702D2DB7D400A4B584 /* ShapeAssetManager.cpp */,
@@ -291,6 +329,8 @@
 				8FF449A02D2C6E5300F1CA3E /* InputManager.cpp in Sources */,
 				8F6E61782D1626C1000B9DD5 /* Rectangle.cpp in Sources */,
 				8FF449942D2C660300F1CA3E /* MoveCommand.cpp in Sources */,
+				8FC8E1812D2F0E3000A4B584 /* Subject.cpp in Sources */,
+				8FC8E17F2D2F01F700A4B584 /* ScoreObserver.cpp in Sources */,
 				8F6E615D2D15E498000B9DD5 /* Shape.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
