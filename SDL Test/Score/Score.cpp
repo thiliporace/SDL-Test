@@ -66,12 +66,8 @@ void Score::setScore(int score) {
         cout << "Erro na textura: " << SDL_GetError() << endl;
     }
     
-    std::cout << rect.w << "/" << rect.h << std::endl;
-    
     rect.w = surface->w;
     rect.h = surface->h;
-    
-    std::cout << rect.w << "/" << rect.h << std::endl;
     
     SDL_FreeSurface(surface);
 }

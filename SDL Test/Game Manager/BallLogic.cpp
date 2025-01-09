@@ -41,7 +41,7 @@ bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
     return true;
 }
 
-void BallLogic::calculateBall(ScoreObserver* scoreObserver, Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore) {
+void BallLogic::calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore) {
     
     ShapeMovement shapeMovement;
     
@@ -58,9 +58,7 @@ void BallLogic::calculateBall(ScoreObserver* scoreObserver, Circle& ball, Rectan
     // Se a bola sair pela esquerda
     if (ball.pos.x <= -10) {
         gameStarted = false;
-//        scoreSubject.notify(RIGHT_SIDE_SCORE,ball); //Não esta funcionando, não faço ideia do porque
-        rightScore++;
-        rightScoreObject.setScore(rightScore);
+        scoreSubject.notify(RIGHT_SIDE_SCORE,ball);
     }
 
     // Se a bola sair pela direita

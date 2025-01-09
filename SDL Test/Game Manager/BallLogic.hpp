@@ -34,7 +34,7 @@ private:
 
 public:
     BallLogic(ScoreObserver* scoreObserver);
-    void calculateBall(ScoreObserver* scoreObserver,Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore);
+    void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore);
     void restartBall(Circle& circle, int xPos, int yPos);
 
 private:

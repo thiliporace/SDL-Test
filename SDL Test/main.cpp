@@ -95,7 +95,7 @@ int main(){
         
         // update
         if (gameStarted){
-            ballLogic.calculateBall(&scoreObserver, circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
+            ballLogic.calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
         }
         else{
             ballLogic.restartBall(circle, 400, 400);
