@@ -27,6 +27,12 @@
 
 using namespace std;
 
+float MS_PER_UPDATE = 0.016;
+
+float getCurrentTime() {
+    return SDL_GetTicks() / 1000.0f;
+}
+
 int main(){
     //Pega mesma instancia de SDLManager que foi usada ate agora
     SdlManager* sdlManager = SdlManager::getInstance();
@@ -63,24 +69,28 @@ int main(){
     inputManager.setKey('U', new MoveCommand(0,-50,shapeMovement), &rightRectangle);
     inputManager.setKey('D', new MoveCommand(0,50,shapeMovement), &rightRectangle);
     
+    double previous = getCurrentTime();
+    double lag = 0.0;
     while (!quit){
+        double current = getCurrentTime();
+        double elapsed = current - previous;
+        previous = current;
+        lag += elapsed;
+        
         // events handling
         while(SDL_PollEvent(&event)){
-            
             switch (event.type){
                 case SDL_QUIT:
                     quit = true;
                     break;
-                
                 case SDL_KEYDOWN:
                     inputManager.handleInput(event);
             }
-            
         }
         
+        // rendering
         SDL_Renderer* renderer = sdlManager->getRenderer();
         
-        // rendering
         SDL_RenderClear(renderer); //Limpa a tela
         SDL_RenderCopy(renderer, circle.shapeTexture, NULL, &circle.pos);
         SDL_RenderCopy(renderer, leftRectangle.shapeTexture, NULL, &leftRectangle.pos);
@@ -90,17 +100,21 @@ int main(){
         
         SDL_RenderPresent(renderer);
         
-        //calcula pra 60 fps
-        SDL_Delay(1000/60);
-        
         // update
-        if (gameStarted){
-            ballLogic.calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
+        while(lag >= MS_PER_UPDATE){
+            if (gameStarted){
+                ballLogic.calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
+            }
+            else{
+                ballLogic.restartBall(circle, 400, 400);
+                gameStarted = true;
+            }
+            
+            lag -= MS_PER_UPDATE;
         }
-        else{
-            ballLogic.restartBall(circle, 400, 400);
-            gameStarted = true;
-        }
+        
+        
+        
         
     }
     
