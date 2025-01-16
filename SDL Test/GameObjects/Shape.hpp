@@ -35,6 +35,8 @@ public:
     
     const void setStartPosition(int& xPos, int& yPos, float width, float height);
     
+    void move(int x, int y);
+    
     ~Shape();
 };
 

@@ -47,3 +47,17 @@ Shape::~Shape(){
         shapeTexture = nullptr;
     }
 }
+
+void Shape::move(int x, int y){
+    if (x == 0){
+        pos.y += y;
+    }
+    else if (y == 0){
+        pos.x += x;
+    }
+    else{
+        pos.x += x;
+        pos.y += y;
+    }
+    
+}

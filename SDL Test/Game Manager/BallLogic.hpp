@@ -21,7 +21,6 @@
 #include "Score.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
-#include "ShapeMovement.hpp"
 #include "MoveCommand.hpp"
 #include "Subject.hpp"
 #include "ScoreObserver.hpp"

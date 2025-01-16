@@ -43,8 +43,6 @@ bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
 
 void BallLogic::calculateBall() {
     
-    ShapeMovement shapeMovement;
-    
     // Lógica de colisão com os retângulos (paddles)
     if (checkCollision(ball.pos, leftRectangle.pos) || checkCollision(ball.pos, rightRectangle.pos)) {
         xSpeed = -xSpeed;
@@ -66,10 +64,6 @@ void BallLogic::calculateBall() {
         gameStarted = false;
         scoreSubject.notify(LEFT_SIDE_SCORE,ball);
     }
-
-    // Movendo a bola
-    MoveCommand moveBall(xSpeed, ySpeed, shapeMovement);
-    moveBall.execute(ball);
 }
 
 void BallLogic::restartBall(int xPos, int yPos) {
@@ -80,6 +74,10 @@ void BallLogic::restartBall(int xPos, int yPos) {
 void BallLogic::update(){
     if (gameStarted){
         calculateBall();
+        
+        // Movendo a bola
+        MoveCommand moveBall(xSpeed, ySpeed);
+        moveBall.execute(ball);
     }
     else{
         restartBall(400, 400);

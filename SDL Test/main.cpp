@@ -58,14 +58,12 @@ int main(){
     
     BallLogic ballLogic(&scoreObserver, circle, leftRectangle, rightRectangle);
     
-    ShapeMovement shapeMovement;
-    
     InputManager inputManager;
     
-    inputManager.setKey('W', new MoveCommand(0,-50,shapeMovement), &leftRectangle);
-    inputManager.setKey('S', new MoveCommand(0,50,shapeMovement), &leftRectangle);
-    inputManager.setKey('U', new MoveCommand(0,-50,shapeMovement), &rightRectangle);
-    inputManager.setKey('D', new MoveCommand(0,50,shapeMovement), &rightRectangle);
+    inputManager.setKey('W', new MoveCommand(0,-50), &leftRectangle);
+    inputManager.setKey('S', new MoveCommand(0,50), &leftRectangle);
+    inputManager.setKey('U', new MoveCommand(0,-50), &rightRectangle);
+    inputManager.setKey('D', new MoveCommand(0,50), &rightRectangle);
     
     double previous = getCurrentTime();
     double lag = 0.0;
