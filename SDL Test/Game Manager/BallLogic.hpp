@@ -30,15 +30,21 @@ class BallLogic {
 private:
     int xSpeed;
     int ySpeed;
+    bool gameStarted;
     Subject scoreSubject;
+    Circle& ball;
+    Rectangle& leftRectangle;
+    Rectangle& rightRectangle;
+    
+    bool checkCollision(SDL_Rect a, SDL_Rect b);
 
 public:
-    BallLogic(ScoreObserver* scoreObserver);
-    void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore);
-    void restartBall(Circle& circle, int xPos, int yPos);
-
-private:
-    bool checkCollision(SDL_Rect a, SDL_Rect b);
+    ~BallLogic() {}
+    BallLogic(ScoreObserver* scoreObserver, Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle);
+    virtual void calculateBall();
+    virtual void restartBall(int xPos, int yPos);
+    //Cada objeto que vai ser atualizado precisa da sua implementacao de update()
+    virtual void update();
 };
 
 

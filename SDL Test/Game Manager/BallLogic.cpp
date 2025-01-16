@@ -21,7 +21,7 @@
 #include <string>
 #include <sstream>
 
-BallLogic::BallLogic(ScoreObserver* scoreObserver) : xSpeed(6), ySpeed(6), scoreSubject(scoreObserver) {}
+BallLogic::BallLogic(ScoreObserver* scoreObserver, Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle) : xSpeed(6), ySpeed(6), scoreSubject(scoreObserver), ball(ball), leftRectangle(leftRectangle), rightRectangle(rightRectangle) {}
 
 bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
     int leftA = a.x;
@@ -41,7 +41,7 @@ bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
     return true;
 }
 
-void BallLogic::calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore) {
+void BallLogic::calculateBall() {
     
     ShapeMovement shapeMovement;
     
@@ -72,7 +72,17 @@ void BallLogic::calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle&
     moveBall.execute(ball);
 }
 
-void BallLogic::restartBall(Circle& circle, int xPos, int yPos) {
-    circle.pos.x = xPos;
-    circle.pos.y = yPos;
+void BallLogic::restartBall(int xPos, int yPos) {
+    ball.pos.x = xPos;
+    ball.pos.y = yPos;
+}
+
+void BallLogic::update(){
+    if (gameStarted){
+        calculateBall();
+    }
+    else{
+        restartBall(400, 400);
+        gameStarted = true;
+    }
 }

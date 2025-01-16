@@ -36,8 +36,6 @@ float getCurrentTime() {
 int main(){
     //Pega mesma instancia de SDLManager que foi usada ate agora
     SdlManager* sdlManager = SdlManager::getInstance();
-    
-    bool gameStarted = true;
 
     int leftScore = 0;
     int rightScore = 0;
@@ -58,7 +56,7 @@ int main(){
     
     ScoreObserver scoreObserver = ScoreObserver(leftScore, rightScore, leftScoreObject, rightScoreObject);
     
-    BallLogic ballLogic(&scoreObserver);
+    BallLogic ballLogic(&scoreObserver, circle, leftRectangle, rightRectangle);
     
     ShapeMovement shapeMovement;
     
@@ -71,13 +69,14 @@ int main(){
     
     double previous = getCurrentTime();
     double lag = 0.0;
+    
     while (!quit){
         double current = getCurrentTime();
         double elapsed = current - previous;
         previous = current;
         lag += elapsed;
         
-        // events handling
+        /// EVENTS HANDLING
         while(SDL_PollEvent(&event)){
             switch (event.type){
                 case SDL_QUIT:
@@ -88,7 +87,7 @@ int main(){
             }
         }
         
-        // rendering
+        /// RENDERING
         SDL_Renderer* renderer = sdlManager->getRenderer();
         
         SDL_RenderClear(renderer); //Limpa a tela
@@ -100,22 +99,13 @@ int main(){
         
         SDL_RenderPresent(renderer);
         
-        // update
+        /// UPDATE
         while(lag >= MS_PER_UPDATE){
-            if (gameStarted){
-                ballLogic.calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
-            }
-            else{
-                ballLogic.restartBall(circle, 400, 400);
-                gameStarted = true;
-            }
-            
+            //Logica do jogo encapsulada no proprio objeto, de acordo com protocolo Update
+            ballLogic.update();
             lag -= MS_PER_UPDATE;
         }
-        
-        
-        
-        
+
     }
     
     SDL_Quit();
