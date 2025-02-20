@@ -31,15 +31,13 @@ private:
     int ySpeed;
     bool gameStarted;
     Subject scoreSubject;
-    Circle& ball;
-    Rectangle& leftRectangle;
-    Rectangle& rightRectangle;
+    Shape& ball, leftRectangle, rightRectangle;
     
     bool checkCollision(SDL_Rect a, SDL_Rect b);
 
 public:
     ~BallLogic() {}
-    BallLogic(ScoreObserver* scoreObserver, Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle);
+    BallLogic(ScoreObserver* scoreObserver, Shape& ball, Shape& leftRectangle, Shape& rightRectangle);
     virtual void calculateBall();
     virtual void restartBall(int xPos, int yPos);
     //Cada objeto que vai ser atualizado precisa da sua implementacao de update()

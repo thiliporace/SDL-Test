@@ -19,6 +19,7 @@
 
 #include "SdlManager.hpp"
 #include "Shape.hpp"
+#include "ShapePool.hpp"
 
 class Rectangle: public Shape{
 private:
@@ -28,7 +29,7 @@ private:
     static constexpr float rectangleHeight = 0.15;
     
 public:
-    Rectangle(int xPos, int yPos);
+    Rectangle(int xPos, int yPos, ShapePool& shapePool, std::string tag);
 };
 
 #endif /* Rectangle_hpp */

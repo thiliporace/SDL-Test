@@ -21,7 +21,7 @@
 #include <string>
 #include <sstream>
 
-BallLogic::BallLogic(ScoreObserver* scoreObserver, Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle) : xSpeed(6), ySpeed(6), scoreSubject(scoreObserver), ball(ball), leftRectangle(leftRectangle), rightRectangle(rightRectangle) {}
+BallLogic::BallLogic(ScoreObserver* scoreObserver, Shape& ball, Shape& leftRectangle, Shape& rightRectangle) : xSpeed(6), ySpeed(6), scoreSubject(scoreObserver), ball(ball), leftRectangle(leftRectangle), rightRectangle(rightRectangle) {}
 
 bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
     int leftA = a.x;

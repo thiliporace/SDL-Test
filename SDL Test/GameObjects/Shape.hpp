@@ -17,10 +17,13 @@
 
 class Shape {
 private:
+    std::string tag;
     int startXPos {};
     int startYPos {};
     int zPos = 1;
 public:
+    
+    std::string getTag() { return tag; };
     
     SDL_Surface *sprite;
 
@@ -28,10 +31,10 @@ public:
     
     SDL_Rect pos; //Deixa a gente poder controlar sua posicao
     
-    Shape(int xPos, int yPos, float width, float height, char* assetName);
-    
     //Construtor padrão da classe
     Shape();
+    
+    void init(int xPos, int yPos, float width, float height, char* assetName, std::string tag);
     
     const void setStartPosition(int& xPos, int& yPos, float width, float height);
     

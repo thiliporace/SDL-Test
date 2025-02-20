@@ -17,6 +17,9 @@
 
 #include "Shape.hpp"
 #include "Score.hpp"
+#include "ShapePool.hpp"
 
-Circle::Circle(int xPos,int yPos): Shape(xPos, yPos, circleWidth, circleHeight, circleAssetName) {};
+Circle::Circle(int xPos,int yPos, ShapePool& shapePool, std::string tag) {
+    shapePool.create(xPos, yPos, circleWidth, circleHeight, circleAssetName, tag);
+};
 
