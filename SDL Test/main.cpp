@@ -49,9 +49,13 @@ int main(){
     Rectangle rightRectangle(740, 300,shapePool,"rectangle2");
     
     //Se voce tentar usar apenas os objetos em cima, nao vai funcionar pois estao sendo criados na pool por fora :/
-    Shape circleObject = shapePool.getShapeFromPool("circle1");
-    Shape leftRectangleObject = shapePool.getShapeFromPool("rectangle1");
-    Shape rightRectangleObject = shapePool.getShapeFromPool("rectangle2");
+    Shape& circleObject = shapePool.getShapeFromPool("circle1");
+    Shape& leftRectangleObject = shapePool.getShapeFromPool("rectangle1");
+    Shape& rightRectangleObject = shapePool.getShapeFromPool("rectangle2");
+    
+    std::cout << "Ball Address: " << &circleObject << std::endl;
+    std::cout << "Left Rect Address: " << &leftRectangleObject << std::endl;
+    std::cout << "Right Rect Address: " << &rightRectangleObject << std::endl;
     
     Score rightScoreObject(700, 150, rightScore);
     Score leftScoreObject(50, 150,leftScore);

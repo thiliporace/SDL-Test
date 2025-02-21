@@ -21,7 +21,7 @@
 #include <string>
 #include <sstream>
 
-BallLogic::BallLogic(ScoreObserver* scoreObserver, Shape& ball, Shape& leftRectangle, Shape& rightRectangle) : xSpeed(6), ySpeed(6), scoreSubject(scoreObserver), ball(ball), leftRectangle(leftRectangle), rightRectangle(rightRectangle) {}
+BallLogic::BallLogic(ScoreObserver* scoreObserver, Shape& ball, Shape& leftRectangle, Shape& rightRectangle) : xSpeed(6), ySpeed(6), scoreSubject(scoreObserver), ball(ball), leftRectangleObj(leftRectangle), rightRectangleObj(rightRectangle) {}
 
 bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
     int leftA = a.x;
@@ -38,13 +38,19 @@ bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
         return false;
     }
 
+    std::cout << "in";
     return true;
 }
 
 void BallLogic::calculateBall() {
     
+    std::cout << "ball penis" << std::endl;
+    std::cout << "Ball Address: " << &ball << std::endl;
+    std::cout << "Left Rect Address: " << &leftRectangleObj << std::endl;
+    std::cout << "Right Rect Address: " << &rightRectangleObj << std::endl;
+
     // Lógica de colisão com os retângulos (paddles)
-    if (checkCollision(ball.pos, leftRectangle.pos) || checkCollision(ball.pos, rightRectangle.pos)) {
+    if (checkCollision(ball.pos, leftRectangleObj.pos) || checkCollision(ball.pos, rightRectangleObj.pos)) {
         xSpeed = -xSpeed;
     }
 

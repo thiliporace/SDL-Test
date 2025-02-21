@@ -31,7 +31,7 @@ private:
     int ySpeed;
     bool gameStarted;
     Subject scoreSubject;
-    Shape& ball, leftRectangle, rightRectangle;
+    Shape& ball, leftRectangleObj, rightRectangleObj;
     
     bool checkCollision(SDL_Rect a, SDL_Rect b);
 
