@@ -20,7 +20,11 @@ using namespace std;
 
 Shape::Shape() {}
 
-Shape::Shape(int xPos, int yPos, float width, float height, char* assetName): startXPos(xPos), startYPos(yPos){
+void Shape::init(int xPos, int yPos, float width, float height, char* assetName, std::string tag){
+    
+    startXPos = xPos;
+    startYPos = yPos;
+    this->tag = tag;
     
     SdlManager* sdlManager = SdlManager::getInstance();
     

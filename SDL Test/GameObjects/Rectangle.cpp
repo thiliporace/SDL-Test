@@ -7,4 +7,6 @@
 
 #include "Rectangle.hpp"
 
-Rectangle::Rectangle(int xPos, int yPos): Shape(xPos, yPos, rectangleWidth, rectangleHeight, rectangleAssetName) {};
+Rectangle::Rectangle(int xPos, int yPos, ShapePool& shapePool, std::string tag) {
+    shapePool.create(xPos, yPos, rectangleWidth, rectangleHeight, rectangleAssetName, tag);
+};

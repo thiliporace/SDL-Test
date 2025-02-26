@@ -24,6 +24,7 @@
 #include "MoveCommand.hpp"
 #include "InputManager.hpp"
 #include "BallLogic.hpp"
+#include "ShapePool.hpp"
 
 using namespace std;
 
@@ -40,10 +41,21 @@ int main(){
     int leftScore = 0;
     int rightScore = 0;
     
-    Circle circle(400,400);
+    ShapePool shapePool = ShapePool();
     
-    Rectangle leftRectangle(50, 300);
-    Rectangle rightRectangle(740, 300);
+    Circle circle(400,400,shapePool,"circle1");
+    
+    Rectangle leftRectangle(50, 300,shapePool,"rectangle1");
+    Rectangle rightRectangle(740, 300,shapePool,"rectangle2");
+    
+    //Se voce tentar usar apenas os objetos em cima, nao vai funcionar pois estao sendo criados na pool por fora :/
+    Shape& circleObject = shapePool.getShapeFromPool("circle1");
+    Shape& leftRectangleObject = shapePool.getShapeFromPool("rectangle1");
+    Shape& rightRectangleObject = shapePool.getShapeFromPool("rectangle2");
+    
+    std::cout << "Ball Address: " << &circleObject << std::endl;
+    std::cout << "Left Rect Address: " << &leftRectangleObject << std::endl;
+    std::cout << "Right Rect Address: " << &rightRectangleObject << std::endl;
     
     Score rightScoreObject(700, 150, rightScore);
     Score leftScoreObject(50, 150,leftScore);
@@ -56,14 +68,14 @@ int main(){
     
     ScoreObserver scoreObserver = ScoreObserver(leftScore, rightScore, leftScoreObject, rightScoreObject);
     
-    BallLogic ballLogic(&scoreObserver, circle, leftRectangle, rightRectangle);
+    BallLogic ballLogic(&scoreObserver, circleObject, leftRectangleObject, rightRectangleObject);
     
     InputManager inputManager;
     
-    inputManager.setKey('W', new MoveCommand(0,-50), &leftRectangle);
-    inputManager.setKey('S', new MoveCommand(0,50), &leftRectangle);
-    inputManager.setKey('U', new MoveCommand(0,-50), &rightRectangle);
-    inputManager.setKey('D', new MoveCommand(0,50), &rightRectangle);
+    inputManager.setKey('W', new MoveCommand(0,-50), &leftRectangleObject);
+    inputManager.setKey('S', new MoveCommand(0,50), &leftRectangleObject);
+    inputManager.setKey('U', new MoveCommand(0,-50), &rightRectangleObject);
+    inputManager.setKey('D', new MoveCommand(0,50), &rightRectangleObject);
     
     double previous = getCurrentTime();
     double lag = 0.0;
@@ -89,9 +101,9 @@ int main(){
         SDL_Renderer* renderer = sdlManager->getRenderer();
         
         SDL_RenderClear(renderer); //Limpa a tela
-        SDL_RenderCopy(renderer, circle.shapeTexture, NULL, &circle.pos);
-        SDL_RenderCopy(renderer, leftRectangle.shapeTexture, NULL, &leftRectangle.pos);
-        SDL_RenderCopy(renderer, rightRectangle.shapeTexture, NULL, &rightRectangle.pos);
+        SDL_RenderCopy(renderer, circleObject.shapeTexture, NULL, &circleObject.pos);
+        SDL_RenderCopy(renderer, leftRectangleObject.shapeTexture, NULL, &leftRectangleObject.pos);
+        SDL_RenderCopy(renderer, rightRectangleObject.shapeTexture, NULL, &rightRectangleObject.pos);
         SDL_RenderCopy(renderer, leftScoreObject.textTexture, NULL, &leftScoreObject.rect);
         SDL_RenderCopy(renderer, rightScoreObject.textTexture, NULL, &rightScoreObject.rect);
         

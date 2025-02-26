@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F4FE6812D67DC5B006E57AC /* ShapePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F4FE67F2D67DC5B006E57AC /* ShapePool.cpp */; };
 		8F6E611B2D1360B8000B9DD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F6E611A2D1360B8000B9DD5 /* Assets.xcassets */; };
 		8F6E61292D13612F000B9DD5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61272D13612F000B9DD5 /* main.cpp */; };
 		8F6E61492D13661D000B9DD5 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6E612B2D13622C000B9DD5 /* SDL2.framework */; };
@@ -48,6 +49,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F4FE67F2D67DC5B006E57AC /* ShapePool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShapePool.cpp; sourceTree = "<group>"; };
+		8F4FE6802D67DC5B006E57AC /* ShapePool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShapePool.hpp; sourceTree = "<group>"; };
 		8F6E61142D1360B6000B9DD5 /* SDL Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDL Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6E611A2D1360B8000B9DD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F6E61212D1360B8000B9DD5 /* SDL_Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDL_Test.entitlements; sourceTree = "<group>"; };
@@ -102,6 +105,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F4FE67E2D67DC4E006E57AC /* Object Pool */ = {
+			isa = PBXGroup;
+			children = (
+				8F4FE67F2D67DC5B006E57AC /* ShapePool.cpp */,
+				8F4FE6802D67DC5B006E57AC /* ShapePool.hpp */,
+			);
+			path = "Object Pool";
+			sourceTree = "<group>";
+		};
 		8F6E610B2D1360B6000B9DD5 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +134,7 @@
 		8F6E61162D1360B6000B9DD5 /* SDL Test */ = {
 			isa = PBXGroup;
 			children = (
+				8F4FE67E2D67DC4E006E57AC /* Object Pool */,
 				8FC8E17B2D2F00B700A4B584 /* Enums */,
 				8FC8E1742D2EFE3300A4B584 /* Observable */,
 				8FC8E1732D2EFDF400A4B584 /* Score */,
@@ -316,6 +329,7 @@
 				8F6E61782D1626C1000B9DD5 /* Rectangle.cpp in Sources */,
 				8FF449942D2C660300F1CA3E /* MoveCommand.cpp in Sources */,
 				8FC8E1812D2F0E3000A4B584 /* Subject.cpp in Sources */,
+				8F4FE6812D67DC5B006E57AC /* ShapePool.cpp in Sources */,
 				8FC8E17F2D2F01F700A4B584 /* ScoreObserver.cpp in Sources */,
 				8F6E615D2D15E498000B9DD5 /* Shape.cpp in Sources */,
 			);
