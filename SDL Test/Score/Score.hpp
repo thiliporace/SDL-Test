@@ -34,6 +34,8 @@ public:
     ~Score();
     
     void setScore(int score);
+    
+    TTF_Font* getFont();
 };
 
 #endif /* Score_hpp */

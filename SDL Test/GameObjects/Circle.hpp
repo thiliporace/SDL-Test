@@ -19,6 +19,7 @@
 
 #include "Shape.hpp"
 #include "Score.hpp"
+#include "ShapePool.hpp"
 
 class Circle: public Shape{
 private:
@@ -29,7 +30,7 @@ private:
     static constexpr float circleHeight = 0.15;
     
 public:
-    Circle(int xPos,int yPos);
+    Circle(int xPos,int yPos, ShapePool& shapePool, std::string tag);
 };
 
 #endif /* Circle_hpp */

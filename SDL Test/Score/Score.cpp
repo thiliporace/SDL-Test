@@ -35,7 +35,7 @@ Score::Score(int xPos, int yPos, int initialScore) {
     rect.y = yPos;
     
     // Inicializa o texto com o valor inicial do score
-    setScore(initialScore);
+    //setScore(initialScore);
 }
 
 Score::~Score() {
@@ -70,4 +70,8 @@ void Score::setScore(int score) {
     rect.h = surface->h;
     
     SDL_FreeSurface(surface);
+}
+
+TTF_Font* Score::getFont(){
+    return font;
 }

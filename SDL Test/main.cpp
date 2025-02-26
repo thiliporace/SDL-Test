@@ -19,99 +19,103 @@
 #include "SdlManager.hpp"
 #include "Shape.hpp"
 #include "Score.hpp"
-#include "BallLogic.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
+#include "MoveCommand.hpp"
+#include "InputManager.hpp"
+#include "BallLogic.hpp"
+#include "ShapePool.hpp"
 
 using namespace std;
+
+float MS_PER_UPDATE = 0.016;
+
+float getCurrentTime() {
+    return SDL_GetTicks() / 1000.0f;
+}
 
 int main(){
     //Pega mesma instancia de SDLManager que foi usada ate agora
     SdlManager* sdlManager = SdlManager::getInstance();
-    
-    bool gameStarted = true;
 
     int leftScore = 0;
     int rightScore = 0;
     
-    Circle circle(400,400);
+    ShapePool shapePool = ShapePool();
     
-    Rectangle leftRectangle(50, 300);
-    Rectangle rightRectangle(740, 300);
+    Circle circle(400,400,shapePool,"circle1");
     
-    Score leftScoreObject(50, 150,leftScore);
+    Rectangle leftRectangle(50, 300,shapePool,"rectangle1");
+    Rectangle rightRectangle(740, 300,shapePool,"rectangle2");
+    
+    //Se voce tentar usar apenas os objetos em cima, nao vai funcionar pois estao sendo criados na pool por fora :/
+    Shape& circleObject = shapePool.getShapeFromPool("circle1");
+    Shape& leftRectangleObject = shapePool.getShapeFromPool("rectangle1");
+    Shape& rightRectangleObject = shapePool.getShapeFromPool("rectangle2");
+    
+    std::cout << "Ball Address: " << &circleObject << std::endl;
+    std::cout << "Left Rect Address: " << &leftRectangleObject << std::endl;
+    std::cout << "Right Rect Address: " << &rightRectangleObject << std::endl;
+    
     Score rightScoreObject(700, 150, rightScore);
+    Score leftScoreObject(50, 150,leftScore);
+    
+    rightScoreObject.setScore(rightScore);
+    leftScoreObject.setScore(leftScore);
     
     SDL_Event event;
     bool quit = false;
     
+    ScoreObserver scoreObserver = ScoreObserver(leftScore, rightScore, leftScoreObject, rightScoreObject);
+    
+    BallLogic ballLogic(&scoreObserver, circleObject, leftRectangleObject, rightRectangleObject);
+    
+    InputManager inputManager;
+    
+    inputManager.setKey('W', new MoveCommand(0,-50), &leftRectangleObject);
+    inputManager.setKey('S', new MoveCommand(0,50), &leftRectangleObject);
+    inputManager.setKey('U', new MoveCommand(0,-50), &rightRectangleObject);
+    inputManager.setKey('D', new MoveCommand(0,50), &rightRectangleObject);
+    
+    double previous = getCurrentTime();
+    double lag = 0.0;
+    
     while (!quit){
-        // events handling
+        double current = getCurrentTime();
+        double elapsed = current - previous;
+        previous = current;
+        lag += elapsed;
+        
+        /// EVENTS HANDLING
         while(SDL_PollEvent(&event)){
-            
             switch (event.type){
                 case SDL_QUIT:
                     quit = true;
                     break;
-                
                 case SDL_KEYDOWN:
-                    //api pra tecla pressionada
-                    switch(event.key.keysym.scancode) {
-                        case SDL_SCANCODE_W:
-                            if (leftRectangle.pos.y > 45){
-                                leftRectangle.pos.y -= 50;
-                            }
-                            break;
-                        
-                        case SDL_SCANCODE_S:
-                            if (leftRectangle.pos.y < 545){
-                                leftRectangle.pos.y += 50;
-                            }
-                            break;
-                        
-                        case SDL_SCANCODE_UP:
-                            if (rightRectangle.pos.y > 45){
-                                rightRectangle.pos.y -= 50;
-                            }
-                            break;
-                            
-                        case SDL_SCANCODE_DOWN:
-                            if (rightRectangle.pos.y < 545){
-                                rightRectangle.pos.y += 50;
-                            }
-                            break;
-                            
-                        default:
-                            break;
-                    }
+                    inputManager.handleInput(event);
             }
-            
         }
         
+        /// RENDERING
         SDL_Renderer* renderer = sdlManager->getRenderer();
         
-        // rendering
         SDL_RenderClear(renderer); //Limpa a tela
-        SDL_RenderCopy(renderer, circle.shapeTexture, NULL, &circle.pos);
-        SDL_RenderCopy(renderer, leftRectangle.shapeTexture, NULL, &leftRectangle.pos);
-        SDL_RenderCopy(renderer, rightRectangle.shapeTexture, NULL, &rightRectangle.pos);
+        SDL_RenderCopy(renderer, circleObject.shapeTexture, NULL, &circleObject.pos);
+        SDL_RenderCopy(renderer, leftRectangleObject.shapeTexture, NULL, &leftRectangleObject.pos);
+        SDL_RenderCopy(renderer, rightRectangleObject.shapeTexture, NULL, &rightRectangleObject.pos);
         SDL_RenderCopy(renderer, leftScoreObject.textTexture, NULL, &leftScoreObject.rect);
         SDL_RenderCopy(renderer, rightScoreObject.textTexture, NULL, &rightScoreObject.rect);
         
         SDL_RenderPresent(renderer);
         
-        //calcula pra 60 fps
-        SDL_Delay(1000/60);
-        
-        // update
-        if (gameStarted){
-            calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
+        /// UPDATE
+        while(lag >= MS_PER_UPDATE){
+            //Logica do jogo encapsulada no proprio objeto, de acordo com protocolo Update
+            ballLogic.update();
+            lag -= MS_PER_UPDATE;
         }
-        else{
-            restartBall(circle, 400, 400);
-            gameStarted = true;
-        }
-        
+
     }
     
     SDL_Quit();
