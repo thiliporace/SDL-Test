@@ -80,6 +80,8 @@ int main(){
     double previous = getCurrentTime();
     double lag = 0.0;
     
+    SDL_Renderer* renderer = sdlManager->getRenderer();
+    
     while (!quit){
         double current = getCurrentTime();
         double elapsed = current - previous;
@@ -98,7 +100,6 @@ int main(){
         }
         
         /// RENDERING
-        SDL_Renderer* renderer = sdlManager->getRenderer();
         
         SDL_RenderClear(renderer); //Limpa a tela
         SDL_RenderCopy(renderer, circleObject.shapeTexture, NULL, &circleObject.pos);
