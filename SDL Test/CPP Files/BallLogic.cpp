@@ -71,7 +71,8 @@ void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRecta
     int speedMultiplier = 0;
     
     if(!fixedUpdate){
-        speedMultiplier = 70;
+        // Nao era pra estar assim aqui, era pra estar 1, mas por quesitos de teste vou mudar
+        speedMultiplier = 140;
     }
     else{
         speedMultiplier = 70;
