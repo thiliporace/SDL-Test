@@ -135,22 +135,20 @@ int main(){
         SDL_RenderCopy(renderer, leftScoreObject.textTexture, NULL, &leftScoreObject.rect);
         SDL_RenderCopy(renderer, rightScoreObject.textTexture, NULL, &rightScoreObject.rect);
         
-        //Botar esses if dentro do update da muuuito cache miss 💔 tem que resolver isso no futuro
-        if(fixedFrameRate){
-            Uint64 endFrame = SDL_GetPerformanceCounter();
-            float frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
+        Uint64 endFrame = SDL_GetPerformanceCounter();
+        float frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
 
-            if (frameTime < TARGET_FRAME_TIME) {
-                SDL_Delay(TARGET_FRAME_TIME - frameTime);
-            }
-
-            endFrame = SDL_GetPerformanceCounter();
-            frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
-            float fps = 1000.0f / std::max(frameTime, 0.001f);
-            
-            fpsSum += fps;
-            frameCount++;
+        if (frameTime < TARGET_FRAME_TIME && fixedFrameRate) {
+            SDL_Delay(TARGET_FRAME_TIME - frameTime);
         }
+
+        endFrame = SDL_GetPerformanceCounter();
+        frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
+        float fps = 1000.0f / std::max(frameTime, 0.001f);
+        
+        fpsSum += fps;
+        frameCount++;
+        
         
         cout << "FPS: " << fps << "Avg FPS: " << (fpsSum/frameCount) << endl;
         
