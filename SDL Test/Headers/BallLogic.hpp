@@ -25,7 +25,7 @@
 bool checkCollision( SDL_Rect a, SDL_Rect b );
 
 
-void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore);
+void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore, bool fixedUpdate, float deltaTime);
 
 
 void restartBall(Circle& circle, int xPos, int yPos);

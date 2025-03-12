@@ -25,6 +25,12 @@
 
 using namespace std;
 
+const float MS_PER_UPDATE = 0.016;
+
+float getCurrentTime() {
+    return SDL_GetTicks() / 1000.0f;
+}
+
 int main(){
     //Pega mesma instancia de SDLManager que foi usada ate agora
     SdlManager* sdlManager = SdlManager::getInstance();
@@ -45,8 +51,30 @@ int main(){
     SDL_Event event;
     bool quit = false;
     
+    //Calculo usado no Game Loop pra garantir que PCs mais rapidos e mais lentos tenham a mesma experiencia de jogo
+    double previous = getCurrentTime();
+    double lag = 0.0;
+    
+    SDL_Renderer* renderer = sdlManager->getRenderer();
+    
+    //Variaveis pra medir FPS
+    bool fixedFrameRate = true;
+    const int TARGET_FPS = 144;
+    const float TARGET_FRAME_TIME = 1000.0f / TARGET_FPS;
+    
+    float fpsSum = 0.0f;
+    int frameCount = 0;
+    
     while (!quit){
-        // events handling
+        Uint64 startFrame = SDL_GetPerformanceCounter();
+                
+        //No começo de cada frame, pegamos quanto tempo real passou desde o ultimo turno do game loop. Isso é a quantidade de tempo de jogo que precisamos simular para que o agora do jogo acompanhe o agora do jogador.
+        double current = getCurrentTime();
+        double elapsed = current - previous;
+        previous = current;
+        lag += elapsed;
+        
+        /// events handling
         while(SDL_PollEvent(&event)){
             
             switch (event.type){
@@ -88,9 +116,31 @@ int main(){
             
         }
         
-        SDL_Renderer* renderer = sdlManager->getRenderer();
+        /// update
+        if (fixedFrameRate){
+            if (gameStarted){
+                calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore, true, elapsed);
+            }
+            else{
+                restartBall(circle, 400, 400);
+                gameStarted = true;
+            }
+        }
+        else{
+            while(lag >= MS_PER_UPDATE){
+                //Logica do jogo encapsulada no proprio objeto, de acordo com padrão Update
+                if (gameStarted){
+                    calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore, false, elapsed);
+                    lag -= MS_PER_UPDATE;
+                }
+                else{
+                    restartBall(circle, 400, 400);
+                    gameStarted = true;
+                }
+            }
+        }
         
-        // rendering
+        /// rendering
         SDL_RenderClear(renderer); //Limpa a tela
         SDL_RenderCopy(renderer, circle.shapeTexture, NULL, &circle.pos);
         SDL_RenderCopy(renderer, leftRectangle.shapeTexture, NULL, &leftRectangle.pos);
@@ -98,19 +148,23 @@ int main(){
         SDL_RenderCopy(renderer, leftScoreObject.textTexture, NULL, &leftScoreObject.rect);
         SDL_RenderCopy(renderer, rightScoreObject.textTexture, NULL, &rightScoreObject.rect);
         
+        Uint64 endFrame = SDL_GetPerformanceCounter();
+        float frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
+
+        if (frameTime < TARGET_FRAME_TIME) {
+            SDL_Delay(TARGET_FRAME_TIME - frameTime);
+        }
+
+        endFrame = SDL_GetPerformanceCounter();
+        frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
+        float fps = 1000.0f / std::max(frameTime, 0.001f);
+        
+        fpsSum += fps;
+        frameCount++;
+        
+        cout << "FPS: " << fps << "Avg FPS: " << (fpsSum/frameCount) << endl;
+        
         SDL_RenderPresent(renderer);
-        
-        //calcula pra 60 fps
-        SDL_Delay(1000/60);
-        
-        // update
-        if (gameStarted){
-            calculateBall(circle, leftRectangle, rightRectangle, leftScoreObject, rightScoreObject, gameStarted, rightScore, leftScore);
-        }
-        else{
-            restartBall(circle, 400, 400);
-            gameStarted = true;
-        }
         
     }
     

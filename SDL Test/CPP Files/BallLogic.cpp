@@ -64,9 +64,18 @@ bool checkCollision( SDL_Rect a, SDL_Rect b )
     }
 
 
-void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore) {
+void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRectangle, Score& leftScoreObject, Score& rightScoreObject, bool& gameStarted, int& rightScore, int& leftScore, bool fixedUpdate, float deltaTime) {
     static int xSpeed = 6;
     static int ySpeed = 6;
+    
+    int speedMultiplier = 0;
+    
+    if(!fixedUpdate){
+        speedMultiplier = 70;
+    }
+    else{
+        speedMultiplier = 70;
+    }
 
     if (checkCollision(ball.pos, leftRectangle.pos) || checkCollision(ball.pos, rightRectangle.pos)) {
         xSpeed = -xSpeed;
@@ -88,8 +97,8 @@ void calculateBall(Circle& ball, Rectangle& leftRectangle, Rectangle& rightRecta
         leftScoreObject.setScore(leftScore);
     }
 
-    ball.pos.x += xSpeed;
-    ball.pos.y += ySpeed;
+    ball.pos.x += xSpeed * speedMultiplier * deltaTime;
+    ball.pos.y += ySpeed * speedMultiplier * deltaTime;
 }
 
 
