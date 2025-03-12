@@ -15,6 +15,7 @@
 #include <SDL2_ttf/SDL_ttf.h>
 #include <string>
 #include <sstream>
+#include <cmath>
 
 #include "SdlManager.hpp"
 #include "Shape.hpp"
@@ -28,7 +29,7 @@
 
 using namespace std;
 
-float MS_PER_UPDATE = 0.016;
+const float MS_PER_UPDATE = 0.016;
 
 float getCurrentTime() {
     return SDL_GetTicks() / 1000.0f;
@@ -85,7 +86,17 @@ int main(){
     
     SDL_Renderer* renderer = sdlManager->getRenderer();
     
+    //Variaveis pra medir FPS
+    bool fixedFrameRate = true;
+    const int TARGET_FPS = 144;
+    const float TARGET_FRAME_TIME = 1000.0f / TARGET_FPS;
+    
+    float fpsSum = 0.0f;
+    int frameCount = 0;
+    
     while (!quit){
+        Uint64 startFrame = SDL_GetPerformanceCounter();
+        
         //No começo de cada frame, pegamos quanto tempo real passou desde o ultimo turno do game loop. Isso é a quantidade de tempo de jogo que precisamos simular para que o agora do jogo acompanhe o agora do jogador.
         double current = getCurrentTime();
         double elapsed = current - previous;
@@ -103,6 +114,19 @@ int main(){
             }
         }
         
+        /// UPDATE
+        //Botar esses if dentro do update da muuuito cache miss 💔 tem que resolver isso no futuro
+        if (fixedFrameRate){
+            ballLogic.update(elapsed,true);
+        }
+        else{
+            while(lag >= MS_PER_UPDATE){
+                //Logica do jogo encapsulada no proprio objeto, de acordo com padrão Update
+                ballLogic.update(elapsed,false);
+                lag -= MS_PER_UPDATE;
+            }
+        }
+        
         /// RENDERING
         SDL_RenderClear(renderer); //Limpa a tela
         SDL_RenderCopy(renderer, circleObject.shapeTexture, NULL, &circleObject.pos);
@@ -111,14 +135,27 @@ int main(){
         SDL_RenderCopy(renderer, leftScoreObject.textTexture, NULL, &leftScoreObject.rect);
         SDL_RenderCopy(renderer, rightScoreObject.textTexture, NULL, &rightScoreObject.rect);
         
-        SDL_RenderPresent(renderer);
-        
-        /// UPDATE
-        while(lag >= MS_PER_UPDATE){
-            //Logica do jogo encapsulada no proprio objeto, de acordo com padrão Update
-            ballLogic.update();
-            lag -= MS_PER_UPDATE;
+        //Botar esses if dentro do update da muuuito cache miss 💔 tem que resolver isso no futuro
+        if(fixedFrameRate){
+            Uint64 endFrame = SDL_GetPerformanceCounter();
+            float frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
+
+            if (frameTime < TARGET_FRAME_TIME) {
+                SDL_Delay(TARGET_FRAME_TIME - frameTime);
+            }
+
+            endFrame = SDL_GetPerformanceCounter();
+            frameTime = (endFrame - startFrame) * 1000.0f / SDL_GetPerformanceFrequency();
+            float fps = 1000.0f / std::max(frameTime, 0.001f);
+            
+            fpsSum += fps;
+            frameCount++;
         }
+        
+        cout << "FPS: " << fps << "Avg FPS: " << (fpsSum/frameCount) << endl;
+        
+        //Apresenta janela
+        SDL_RenderPresent(renderer);
         
     }
     

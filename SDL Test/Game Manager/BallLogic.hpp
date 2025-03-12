@@ -43,7 +43,7 @@ public:
     virtual void calculateBall();
     virtual void restartBall(int xPos, int yPos);
     //Cada objeto que vai ser atualizado precisa da sua implementacao de update()
-    virtual void update();
+    virtual void update(float deltaTime,bool fixedUpdate);
 };
 
 

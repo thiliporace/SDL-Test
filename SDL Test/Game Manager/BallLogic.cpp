@@ -71,12 +71,20 @@ void BallLogic::restartBall(int xPos, int yPos) {
     ball.pos.y = yPos;
 }
 
-void BallLogic::update(){
+void BallLogic::update(float deltaTime, bool fixedUpdate){
     if (gameStarted){
         calculateBall();
         
         // Movendo a bola
-        MoveCommand moveBall(xSpeed, ySpeed);
+        MoveCommand moveBall(0,0);
+        
+        if (!fixedUpdate){
+            moveBall = MoveCommand(xSpeed, ySpeed);
+        }
+        else{
+            moveBall = MoveCommand(xSpeed * deltaTime * 70, ySpeed * deltaTime * 70);
+        }
+        
         moveBall.execute(ball);
     }
     else{
