@@ -8,7 +8,7 @@
 #include "BallLogic.hpp"
 
 #include "Shape.hpp"
-#include "Score.hpp"
+#include "Label.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
 
@@ -38,16 +38,10 @@ bool BallLogic::checkCollision(SDL_Rect a, SDL_Rect b) {
         return false;
     }
 
-    std::cout << "in";
     return true;
 }
 
 void BallLogic::calculateBall() {
-    
-    std::cout << "ball penis" << std::endl;
-    std::cout << "Ball Address: " << &ball << std::endl;
-    std::cout << "Left Rect Address: " << &leftRectangleObj << std::endl;
-    std::cout << "Right Rect Address: " << &rightRectangleObj << std::endl;
 
     // Lógica de colisão com os retângulos (paddles)
     if (checkCollision(ball.pos, leftRectangleObj.pos) || checkCollision(ball.pos, rightRectangleObj.pos)) {

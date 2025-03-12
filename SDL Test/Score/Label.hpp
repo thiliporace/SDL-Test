@@ -17,10 +17,12 @@
 #include <sstream>
 
 #include <stdio.h>
+#include <string.h>
 
 
-class Score {
+class Label {
 private:
+    std::string label;
     SDL_Color color;
     TTF_Font* font;
     
@@ -29,11 +31,11 @@ public:
     SDL_Rect rect;
     SDL_Texture* textTexture;
     
-    Score(int xPos, int yPos, int initialScore);
+    Label(int xPos, int yPos, int initialScore, std::string label);
     
-    ~Score();
+    ~Label();
     
-    void setScore(int score);
+    void setValue(int score);
     
     TTF_Font* getFont();
 };

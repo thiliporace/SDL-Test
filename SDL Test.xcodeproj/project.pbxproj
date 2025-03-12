@@ -21,7 +21,7 @@
 		8F6E61692D160147000B9DD5 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6E614D2D136E18000B9DD5 /* SDL2_image.framework */; };
 		8F6E616A2D1601B9000B9DD5 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6E61622D15F57B000B9DD5 /* SDL2_ttf.framework */; };
 		8F6E616C2D1603A7000B9DD5 /* NewYork.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F6E616B2D1603A7000B9DD5 /* NewYork.ttf */; };
-		8F6E616F2D1616BC000B9DD5 /* Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E616D2D1616BC000B9DD5 /* Score.cpp */; };
+		8F6E616F2D1616BC000B9DD5 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E616D2D1616BC000B9DD5 /* Label.cpp */; };
 		8F6E61722D1625B3000B9DD5 /* BallLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61702D1625B3000B9DD5 /* BallLogic.cpp */; };
 		8F6E61752D162639000B9DD5 /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61732D162639000B9DD5 /* Circle.cpp */; };
 		8F6E61782D1626C1000B9DD5 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E61762D1626C1000B9DD5 /* Rectangle.cpp */; };
@@ -67,8 +67,8 @@
 		8F6E61602D15E865000B9DD5 /* rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rectangle.png; path = ../../../../Downloads/rectangle.png; sourceTree = "<group>"; };
 		8F6E61622D15F57B000B9DD5 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		8F6E616B2D1603A7000B9DD5 /* NewYork.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NewYork.ttf; sourceTree = "<group>"; };
-		8F6E616D2D1616BC000B9DD5 /* Score.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Score.cpp; sourceTree = "<group>"; };
-		8F6E616E2D1616BC000B9DD5 /* Score.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Score.hpp; sourceTree = "<group>"; };
+		8F6E616D2D1616BC000B9DD5 /* Label.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Label.cpp; sourceTree = "<group>"; };
+		8F6E616E2D1616BC000B9DD5 /* Label.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Label.hpp; sourceTree = "<group>"; };
 		8F6E61702D1625B3000B9DD5 /* BallLogic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BallLogic.cpp; sourceTree = "<group>"; };
 		8F6E61712D1625B3000B9DD5 /* BallLogic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BallLogic.hpp; sourceTree = "<group>"; };
 		8F6E61732D162639000B9DD5 /* Circle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
@@ -168,8 +168,8 @@
 		8FC8E1732D2EFDF400A4B584 /* Score */ = {
 			isa = PBXGroup;
 			children = (
-				8F6E616D2D1616BC000B9DD5 /* Score.cpp */,
-				8F6E616E2D1616BC000B9DD5 /* Score.hpp */,
+				8F6E616D2D1616BC000B9DD5 /* Label.cpp */,
+				8F6E616E2D1616BC000B9DD5 /* Label.hpp */,
 				8FC8E17D2D2F01F700A4B584 /* ScoreObserver.cpp */,
 				8FC8E17E2D2F01F700A4B584 /* ScoreObserver.hpp */,
 			);
@@ -324,7 +324,7 @@
 				8FC8E1722D2DB7D400A4B584 /* ShapeAssetManager.cpp in Sources */,
 				8F6E61722D1625B3000B9DD5 /* BallLogic.cpp in Sources */,
 				8F6E615A2D15DBBF000B9DD5 /* SdlManager.cpp in Sources */,
-				8F6E616F2D1616BC000B9DD5 /* Score.cpp in Sources */,
+				8F6E616F2D1616BC000B9DD5 /* Label.cpp in Sources */,
 				8FF449A02D2C6E5300F1CA3E /* InputManager.cpp in Sources */,
 				8F6E61782D1626C1000B9DD5 /* Rectangle.cpp in Sources */,
 				8FF449942D2C660300F1CA3E /* MoveCommand.cpp in Sources */,

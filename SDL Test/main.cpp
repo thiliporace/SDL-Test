@@ -18,7 +18,7 @@
 
 #include "SdlManager.hpp"
 #include "Shape.hpp"
-#include "Score.hpp"
+#include "Label.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
 #include "MoveCommand.hpp"
@@ -38,13 +38,18 @@ int main(){
     //Pega mesma instancia de SDLManager que foi usada ate agora
     SdlManager* sdlManager = SdlManager::getInstance();
 
+    //Inicializar variaveis do score
     int leftScore = 0;
     int rightScore = 0;
     
+    //Calculo de fps
+    float fps = 0;
+    
+    //Inicializar pool de objetos
     ShapePool shapePool = ShapePool();
     
+    //Ao criar os objetos, eles automaticamente inicializam objetos vazios na pool
     Circle circle(400,400,shapePool,"circle1");
-    
     Rectangle leftRectangle(50, 300,shapePool,"rectangle1");
     Rectangle rightRectangle(740, 300,shapePool,"rectangle2");
     
@@ -53,15 +58,12 @@ int main(){
     Shape& leftRectangleObject = shapePool.getShapeFromPool("rectangle1");
     Shape& rightRectangleObject = shapePool.getShapeFromPool("rectangle2");
     
-    std::cout << "Ball Address: " << &circleObject << std::endl;
-    std::cout << "Left Rect Address: " << &leftRectangleObject << std::endl;
-    std::cout << "Right Rect Address: " << &rightRectangleObject << std::endl;
+    //Cria os objetos score e o texto do fps
+    Label rightScoreObject(700, 150, rightScore, "Score: ");
+    Label leftScoreObject(50, 150,leftScore, "Score: ");
     
-    Score rightScoreObject(700, 150, rightScore);
-    Score leftScoreObject(50, 150,leftScore);
-    
-    rightScoreObject.setScore(rightScore);
-    leftScoreObject.setScore(leftScore);
+    rightScoreObject.setValue(rightScore);
+    leftScoreObject.setValue(leftScore);
     
     SDL_Event event;
     bool quit = false;
@@ -77,12 +79,14 @@ int main(){
     inputManager.setKey('U', new MoveCommand(0,-50), &rightRectangleObject);
     inputManager.setKey('D', new MoveCommand(0,50), &rightRectangleObject);
     
+    //Calculo usado no Game Loop pra garantir que PCs mais rapidos e mais lentos tenham a mesma experiencia de jogo
     double previous = getCurrentTime();
     double lag = 0.0;
     
     SDL_Renderer* renderer = sdlManager->getRenderer();
     
     while (!quit){
+        //No começo de cada frame, pegamos quanto tempo real passou desde o ultimo turno do game loop. Isso é a quantidade de tempo de jogo que precisamos simular para que o agora do jogo acompanhe o agora do jogador.
         double current = getCurrentTime();
         double elapsed = current - previous;
         previous = current;
@@ -100,7 +104,6 @@ int main(){
         }
         
         /// RENDERING
-        
         SDL_RenderClear(renderer); //Limpa a tela
         SDL_RenderCopy(renderer, circleObject.shapeTexture, NULL, &circleObject.pos);
         SDL_RenderCopy(renderer, leftRectangleObject.shapeTexture, NULL, &leftRectangleObject.pos);
@@ -112,11 +115,11 @@ int main(){
         
         /// UPDATE
         while(lag >= MS_PER_UPDATE){
-            //Logica do jogo encapsulada no proprio objeto, de acordo com protocolo Update
+            //Logica do jogo encapsulada no proprio objeto, de acordo com padrão Update
             ballLogic.update();
             lag -= MS_PER_UPDATE;
         }
-
+        
     }
     
     SDL_Quit();

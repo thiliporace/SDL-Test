@@ -10,16 +10,16 @@
 
 #include <stdio.h>
 #include "Observer.hpp"
-#include "Score.hpp"
+#include "Label.hpp"
 
 class ScoreObserver: public Observer{
 private:
     int& leftScore;
     int& rightScore;
-    Score& leftScoreObject;
-    Score& rightScoreObject;
+    Label& leftScoreObject;
+    Label& rightScoreObject;
 public:
-    ScoreObserver(int& leftScore, int& rightScore, Score& leftScoreObject, Score& rightScoreObject);
+    ScoreObserver(int& leftScore, int& rightScore, Label& leftScoreObject, Label& rightScoreObject);
     void onNotify(EventEnum event, const Shape& shape) override;
 };
 

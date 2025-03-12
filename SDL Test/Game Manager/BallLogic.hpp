@@ -18,7 +18,7 @@
 #include <sstream>
 
 #include "Shape.hpp"
-#include "Score.hpp"
+#include "Label.hpp"
 #include "Circle.hpp"
 #include "Rectangle.hpp"
 #include "MoveCommand.hpp"

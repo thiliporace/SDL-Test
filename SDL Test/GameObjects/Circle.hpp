@@ -18,7 +18,7 @@
 #include <sstream>
 
 #include "Shape.hpp"
-#include "Score.hpp"
+#include "Label.hpp"
 #include "ShapePool.hpp"
 
 class Circle: public Shape{

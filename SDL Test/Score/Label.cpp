@@ -14,11 +14,11 @@
 #include <sstream>
 
 #include "SdlManager.hpp"
-#include "Score.hpp"
+#include "Label.hpp"
 
 using namespace std;
 
-Score::Score(int xPos, int yPos, int initialScore) {
+Label::Label(int xPos, int yPos, int initialScore, std::string label): label(label) {
     if (TTF_Init() == -1) {
         cout << "Erro ao inicializar TTF: " << TTF_GetError() << endl;
         return;
@@ -38,12 +38,12 @@ Score::Score(int xPos, int yPos, int initialScore) {
     //setScore(initialScore);
 }
 
-Score::~Score() {
+Label::~Label() {
     if (textTexture) SDL_DestroyTexture(textTexture);
     if (font) TTF_CloseFont(font);
 }
 
-void Score::setScore(int score) {
+void Label::setValue(int score) {
     
     if (textTexture) {
         SDL_DestroyTexture(textTexture);
@@ -51,7 +51,7 @@ void Score::setScore(int score) {
     }
     
     std::ostringstream oss;
-    oss << "Score: " << score;
+    oss << label << score;
     std::string scoreText = oss.str();
     
     SDL_Surface* surface = TTF_RenderText_Solid(font, scoreText.c_str(), color);
@@ -72,6 +72,6 @@ void Score::setScore(int score) {
     SDL_FreeSurface(surface);
 }
 
-TTF_Font* Score::getFont(){
+TTF_Font* Label::getFont(){
     return font;
 }

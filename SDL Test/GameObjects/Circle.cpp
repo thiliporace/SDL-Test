@@ -16,7 +16,7 @@
 #include <sstream>
 
 #include "Shape.hpp"
-#include "Score.hpp"
+#include "Label.hpp"
 #include "ShapePool.hpp"
 
 Circle::Circle(int xPos,int yPos, ShapePool& shapePool, std::string tag) {
