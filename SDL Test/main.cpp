@@ -87,7 +87,7 @@ int main(){
     SDL_Renderer* renderer = sdlManager->getRenderer();
     
     //Variaveis pra medir FPS
-    bool fixedFrameRate = true;
+    bool fixedFrameRate = false;
     const int TARGET_FPS = 144;
     const float TARGET_FRAME_TIME = 1000.0f / TARGET_FPS;
     
